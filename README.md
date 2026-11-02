@@ -2,7 +2,7 @@
 
 **An acquisition strategy lab that connects finance, operations, and product decisions.**
 
-[Open the hosted demo](https://dealcraft-lab.gagefagan24.chatgpt.site) (ChatGPT sign-in may be required).
+[Open the hosted demo](https://dealcraft-lab.gagefagan24.chatgpt.site) (currently owner-only; public source and local run instructions are available below).
 
 A purchase multiple does not make an investment thesis. Dealcraft lets you underwrite a fictional vertical-software acquisition, change the operating plan, and see how customer behavior flows through earnings, cash, debt, and equity returns.
 
@@ -55,28 +55,21 @@ A seeded LCG drives centered sums of three uniform draws. Independent shocks var
 
 Nine engine tests cover sources/uses, annual cash and debt reconciliation, opening-debt interest, zero leverage, purchase/exit price effects, liquidity shortfalls, IRR identity, seeded simulation, sensitivity alignment, and invalid inputs. GitHub Actions runs the suite on pushes and pull requests. Browser QA covers scenario changes, persistence, exports, and responsive rendering.
 
-## Interview walkthrough
+## Explore a case
 
 1. Start with the base case: approximately 22% IRR and 2.70× MOIC.
-2. Load downside and explain which assumptions undermine the thesis.
+2. Load the downside case to identify which assumptions undermine the thesis.
 3. Separate price from operating execution using the sensitivity grid.
-4. Explain why pricing and retention should be correlated in a more realistic model.
+4. Test pricing and retention together; the simulation currently treats their effects independently.
 5. Open the cash schedule and trace earnings to debt repayment.
 6. Export the memo and distinguish a return screen from a final investment decision.
 
-**Banking:** transaction structure, cash conversion, leverage, multiple compression.
-
-**Consulting:** synergy delivery, integration costs, scenario planning, accountable operating assumptions.
-
-**Product:** willingness to pay, retention, cross-sell adoption, user-facing decision support.
-
-**Engineering:** deterministic domain logic, financial invariants, reproducible randomness, dependency-free deployment, safe DOM rendering of stored data.
 
 ## Intentional limits and next steps
 
 Fictional data; no real-company valuation claims. No purchase accounting, debt tranches, covenants, interest caps, tax loss carryforwards, interim distributions, or default recovery waterfall. Future extensions could add correlated shocks, explicit customer cohorts, multi-tranche debt, sponsor injections, and calibrated historical distributions. These are extensions, not implemented features.
 
-Built with AI assistance. Review the model, modify assumptions, and understand the tradeoffs before presenting it as your work in an interview.
+Built with AI assistance.
 
 ## License
 
