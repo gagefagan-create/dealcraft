@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {model,defaults,simulate,sensitivity} from '../dist/model.js';
+test('sources equal uses and debt never negative',()=>{const m=model(defaults);assert.equal(m.equity+m.debt0,m.ev+m.fees);assert.ok(m.years.every(y=>y.debt>=0));assert.ok(m.equity>0)});
+test('annual cash reconciles and interest uses opening debt',()=>{const m=model(defaults);let debt=m.debt0,cash=0;for(const y of m.years){assert.equal(y.interest,debt*.08);assert.ok(Math.abs(y.debt-(debt-y.paydown))<1e-9);assert.ok(Math.abs(y.cash-(cash+y.fcf-y.paydown))<1e-9);debt=y.debt;cash=y.cash}});
+test('unlevered cash accumulates without repayments',()=>{const m=model({...defaults,leverage:0});assert.ok(m.years.every(y=>y.interest===0&&y.paydown===0));assert.ok(m.years.at(-1).cash>0)});
+test('higher purchase price lowers return; higher exit improves it',()=>{assert.ok(model({...defaults,entry:14}).irr<model(defaults).irr);assert.ok(model({...defaults,exit:13}).irr>model(defaults).irr)});
+test('cash deficits are flagged',()=>{const m=model({...defaults,growth:-10,margin:10,retention:75,integration:30,interest:15,leverage:6,synergy:0});assert.ok(m.liquidityShortfall);assert.ok(m.proceeds>=0)});
+test('IRR compounds to equity proceeds',()=>{const m=model(defaults);assert.ok(Math.abs(m.equity*(1+m.irr)**5-m.proceeds)<1e-8)});
+test('simulation is reproducible, ordered and bounded',()=>{const s=simulate(defaults);assert.deepEqual(s,simulate(defaults));assert.ok(s.p10<=s.p50&&s.p50<=s.p90);assert.equal(s.values.length,1000);assert.ok(s.hurdle>=0&&s.hurdle<=1);assert.notDeepEqual(s.values,simulate(defaults,1000,43).values)});
+test('sensitivity center matches base case',()=>{assert.equal(sensitivity(defaults)[2][2],model(defaults).irr)});
+test('invalid inputs rejected',()=>{assert.throws(()=>model({...defaults,exit:NaN}));assert.throws(()=>model({...defaults,retention:110}))});
