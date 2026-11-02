@@ -2,7 +2,7 @@
 
 **An acquisition strategy lab that connects finance, operations, and product decisions.**
 
-[Open the hosted demo](https://dealcraft-lab.gagefagan24.chatgpt.site) (currently owner-only; public source and local run instructions are available below).
+[Launch Dealcraft →](https://gagefagan-create.github.io/dealcraft/)
 
 A purchase multiple does not make an investment thesis. Dealcraft lets you underwrite a fictional vertical-software acquisition, change the operating plan, and see how customer behavior flows through earnings, cash, debt, and equity returns.
 
